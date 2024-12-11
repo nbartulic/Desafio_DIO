@@ -1,0 +1,66 @@
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+def convert_to_grayscale_and_binarize(image_path, threshold=128):
+    """
+    Converts a color image to grayscale and a binarized black-and-white image.
+
+    Parameters:
+        image_path (str): Path to the input image file.
+        threshold (int): Threshold value for binarization. Default is 128.
+
+    Returns:
+        grayscale_image: Image in grayscale.
+        binarized_image: Image in black and white (binarized).
+    """
+    # Read the input image
+    color_image = cv2.imread(image_path)
+
+    # Convert the image to grayscale
+    grayscale_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
+
+    # Perform binarization
+    _, binarized_image = cv2.threshold(grayscale_image, threshold, 255, cv2.THRESH_BINARY)
+
+    return grayscale_image, binarized_image
+
+def display_images(original, grayscale, binarized):
+    """
+    Displays the original, grayscale, and binarized images side by side.
+
+    Parameters:
+        original: The original color image.
+        grayscale: The grayscale version of the image.
+        binarized: The binarized version of the image.
+    """
+    plt.figure(figsize=(15, 5))
+
+    # Display the original image
+    plt.subplot(1, 3, 1)
+    plt.imshow(cv2.cvtColor(original, cv2.COLOR_BGR2RGB))
+    plt.title("Original Image")
+    plt.axis("off")
+
+    # Display the grayscale image
+    plt.subplot(1, 3, 2)
+    plt.imshow(grayscale, cmap="gray")
+    plt.title("Grayscale Image")
+    plt.axis("off")
+
+    # Display the binarized image
+    plt.subplot(1, 3, 3)
+    plt.imshow(binarized, cmap="gray")
+    plt.title("Binarized Image")
+    plt.axis("off")
+
+    plt.show()
+
+image_path = "path_to_your_image.jpg"  # Update with the actual image file path
+threshold = 128  # Adjust threshold value as needed
+
+gray_image, bin_image = convert_to_grayscale_and_binarize(image_path, threshold)
+
+original_image = cv2.imread(image_path)
+
+display_images(original_image, gray_image, bin_image)
