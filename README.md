@@ -16,6 +16,9 @@ Este projeto utiliza o método de Transfer Learning para classificar imagens de 
 - Acurácia final no treinamento: 95%
 - Acurácia final na validação: 90%
 
+#
+#
+#
 
 # Image binarization and grayscale conversion
 
