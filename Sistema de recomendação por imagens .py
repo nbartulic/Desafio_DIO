@@ -11,7 +11,6 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 model = VGG16(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 
 def preprocess_image(image_path):
-    """ Pré-processa uma imagem para extração de características """
     img = load_img(image_path, target_size=(224, 224))
     img_array = img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
@@ -19,10 +18,9 @@ def preprocess_image(image_path):
     return img_array
 
 def extract_features(image_path):
-    """ Extrai as características da imagem utilizando o modelo """
     img_array = preprocess_image(image_path)
     features = model.predict(img_array)
-    features = features.flatten()  # Achatar o vetor de características
+    features = features.flatten() 
     return features
 
 # Diretório de imagens
@@ -41,7 +39,7 @@ similarities = cosine_similarity([query_features], features_list)
 
 # Obter as imagens mais similares
 sorted_indices = np.argsort(similarities[0])[::-1]
-top_n = 5  # Número de imagens mais similares a exibir
+top_n = 5 
 
 # Mostrar resultados
 plt.figure(figsize=(10, 5))
